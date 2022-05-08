@@ -1,10 +1,17 @@
 import React from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { signOut } from 'firebase/auth';
 import auth from '../firebase.init'
 
 const NavBar = () => {
+    const navigate = useNavigate()
     const [user] = useAuthState(auth)
+    const onLogout = () => {
+        signOut(auth)
+        navigate('/login')
+    }
+    console.log(user)
     return (
         <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
@@ -22,16 +29,22 @@ const NavBar = () => {
                         </li>
                     </ul>
                     <div className="navbar-nav ms-auto">
-                        {!user ? (
+                        {user ? (
+                            <>
+                                <button className="btn btn-link nav-link">{user?.photoURL ?
+                                    <img className='img-fluid'
+                                        style={{ height: '20px', width: '20px' }} src={user?.photoURL} alt={user?.email} /> :
+                                    <i className="fa fa-user nav-link"></i>}</button>
+
+                                <button onClick={onLogout} className="btn btn-link nav-link">Logout</button>
+                            </>
+
+                        ) : (
                             <>
                                 <NavLink className="nav-link" to="/login">Login</NavLink>
                                 <NavLink className="nav-link" to="/register">Register</NavLink>
                             </>
-                        ) : (
-                            <>
-                                <p className="nav-link">Najmus Sakib</p>
-                                <button className="btn btn-link nav-link">Logout</button>
-                            </>
+
                         )}
                     </div>
                 </div>

@@ -7,7 +7,7 @@ const PrivateRoute = ({ children }) => {
     const [user, loading] = useAuthState(auth)
     const location = useLocation()
     if (loading) {
-        return <Spin loading>Loading</Spin>
+        return <Spin size='large' loading={true}>Loading...</Spin>
     }
     if (!user) {
         return <Navigate to='/login' state={{ from: location }} replace></Navigate>

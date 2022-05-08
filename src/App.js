@@ -1,10 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify'
 import './App.css'
 import Footer from './components/Footer/Footer.comp';
 import Home from './components/Home/Home.comp';
 import Login from './components/Login/Login.comp';
 import NavBar from './components/NavBar.comp';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Register from './components/Register/Register.comp';
 
 
 const App = () => (
@@ -21,9 +24,10 @@ const App = () => (
             <div>Product page</div>
           </PrivateRoute>} />
         <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<></>} />
+        <Route path='/register' element={<Register />} />
       </Routes>
     </main>
+    <ToastContainer />
     <Footer />
   </>
 );
