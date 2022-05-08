@@ -1,0 +1,5 @@
+.banner {
+    background-image: linear-gradient(to right bottom, rgba(213, 142, 111, 0.8), rgba(180, 40, 40, 0.8)), url('../../../public/images/cover.jpg');
+    background-size: cover;
+    color: white;
+}
