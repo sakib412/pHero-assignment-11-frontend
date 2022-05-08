@@ -20,8 +20,8 @@ const App = () => (
         })}
       />
     </Header>
-    <Content style={{ padding: '0 50px' }}>
-      <div className="site-layout-content">Content</div>
+    <Content>
+      <div>Content</div>
     </Content>
     <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
   </Layout>
