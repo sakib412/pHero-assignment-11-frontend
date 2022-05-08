@@ -1,30 +1,19 @@
-import { Layout, Menu } from 'antd';
 import './App.css'
+import Footer from './components/Footer/Footer.comp';
+import Home from './components/Home/Home.comp';
+import NavBar from './components/NavBar.comp';
 
-const { Header, Content, Footer } = Layout;
 
 const App = () => (
-  <Layout className="layout">
-    <Header>
-      <div className="logo"></div>
-      <Menu
-        theme="dark"
-        mode="horizontal"
-        defaultSelectedKeys={['1']}
-        items={new Array(5).fill(null).map((_, index) => {
-          const key = index + 1;
-          return {
-            key,
-            label: `nav ${key}`,
-          };
-        })}
-      />
-    </Header>
-    <Content>
-      <div>Content</div>
-    </Content>
-    <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
-  </Layout>
+  <>
+    <header>
+      <NavBar />
+    </header>
+    <main className='container mt-5' style={{ minHeight: '100vh' }}>
+      <Home />
+    </main>
+    <Footer />
+  </>
 );
 
 export default App
