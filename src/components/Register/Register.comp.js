@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth'
 import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
+import { Form, Input } from 'antd';
 
 
 const Register = () => {
@@ -67,10 +68,32 @@ const Register = () => {
                     </div>
                     <span className="input-icon"><i className="fa fa-lock"></i></span>
                 </div>
+                <Form.Item
+                    name="confirm"
+                    label="Confirm Password"
+                    dependencies={['password']}
+                    hasFeedback
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please confirm your password!',
+                        },
+                        ({ getFieldValue }) => ({
+                            validator(_, value) {
+                                if (!value || getFieldValue('password') === value) {
+                                    return Promise.resolve();
+                                }
+                                return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                            },
+                        }),
+                    ]}
+                >
+                    <Input.Password />
+                </Form.Item>
                 <button className="login-btn">Register</button>
                 <p className='reset-psw'>Already have an account? <Link to="/login">Login</Link></p>
                 <div className="seperator"><b>or</b></div>
-                <p>Sign in with your social media account</p>
+                <p className='text-center'>Sign in with your social media account</p>
                 <div className="social-icon">
                     <button onClick={() => signInWithGoogle()} type="button"><i className="fa fa-google"></i></button>
                 </div>

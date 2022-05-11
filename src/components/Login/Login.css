@@ -1,83 +1,13 @@
-.login-form h1 {
-    font-size: 36px;
-    text-align: center;
-    margin-bottom: 30px;
-    font-weight: normal;
-}
-
-.login-form .social-icon {
+.social-icon {
     width: 100%;
     font-size: 20px;
     padding-top: 20px;
     color: #fff;
     text-align: center;
-    float: left;
 }
 
-.login-form {
-    background: #fff;
-    width: 450px;
-    border-radius: 6px;
-    margin: 0 auto;
-    display: table;
-    padding: 15px 30px 30px;
-    box-sizing: border-box;
-}
 
-.form-group {
-    float: left;
-    width: 100%;
-    margin: 0 0 15px;
-    position: relative;
-}
-
-.login-form input {
-    width: 100%;
-    padding: 5px;
-    height: 56px;
-    border-radius: 74px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    font-size: 15px;
-    padding-left: 75px;
-}
-
-.login-form .form-group .input-icon {
-    font-size: 15px;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    align-items: center;
-    position: absolute;
-    border-radius: 25px;
-    bottom: 0;
-    height: 100%;
-    padding-left: 35px;
-    color: #666;
-}
-
-.login-form .login-btn {
-    background: #1017e3;
-    padding: 11px 50px;
-    border-color: #1017e3;
-    color: #fff;
-    text-align: center;
-    margin: 0 auto;
-    font-size: 20px;
-    border: 1px solid #1017e3;
-    border-radius: 44px;
-    width: 50%;
-    height: 56px;
-    cursor: pointer;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-}
-
-.login-form .reset-psw {
-    float: left;
+.reset-psw {
     width: 100%;
     text-decoration: none;
     color: #1017e3;
@@ -86,31 +16,30 @@
     margin-top: 11px;
 }
 
-.login-form .social-icon button {
+.social-icon button {
     font-size: 20px;
     color: white;
     height: 50px;
     width: 50px;
-    background: #1017e3;
+    background: #EA4335;
     border-radius: 60%;
     margin: 0px 10px;
     border: none;
     cursor: pointer;
 }
 
-.login-form button:hover {
+button:hover {
     opacity: 0.9;
 }
 
-.login-form .seperator {
-    float: left;
+.seperator {
     width: 100%;
     border-top: 1px solid #ccc;
     text-align: center;
     margin: 50px 0 0;
 }
 
-.login-form .seperator b {
+.seperator b {
     width: 40px;
     height: 40px;
     font-size: 16px;
@@ -123,32 +52,4 @@
     position: relative;
     top: -22px;
     z-index: 1;
-}
-
-.login-form p {
-    float: left;
-    width: 100%;
-    text-align: center;
-    font-size: 16px;
-    margin: 0 0 10px;
-}
-
-@media screen and (max-width:767px) {
-    .login-form {
-        width: 90%;
-        padding: 15px 15px 30px;
-    }
-}
-
-.imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
-}
-
-/* Avatar image */
-img.avatar {
-    width: 40px;
-    lenght: 40px;
-    height: 40px;
-    border-radius: 50%;
 }

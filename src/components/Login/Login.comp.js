@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 
 import './Login.css'
 import auth from '../../firebase.init';
+import { Button, Form, Input } from 'antd';
 
 const Login = () => {
     const navigate = useNavigate()
@@ -47,40 +48,47 @@ const Login = () => {
 
 
     return (
-        <div class="login-form">
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <h1>Login</h1>
+        <div class="w-75 mx-auto my-5">
+            <Form onFinish={onSubmit} layout="vertical">
+                <h1 className='text-center'>Login</h1>
 
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="E-mail Address"
-                        className={`form-control ${!!errors?.email ? 'is-invalid' : 'is-valid'}`}
-                        id="email"
-                        {...register("email", {
-                            required: "Please provide your email address.",
-                            pattern: {
-                                value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                                message: "Invalid email address"
-                            }
-                        })} />
-                    <span class="input-icon"><i class="fa fa-envelope"></i></span>
-                </div>
-                <div class="form-group">
-                    <input type="password" name="psw" placeholder="Password"
-                        className={`form-control ${!!errors?.password ? 'is-invalid' : 'is-valid'}`}
-                        id="password" {...register("password", {
-                            required: "Please provide your password.",
-                        })} />
-                    <span class="input-icon"><i class="fa fa-lock"></i></span>
-                </div>
-                <button class="login-btn">Login</button>
+                <Form.Item name="email" label="Email"
+                    hasFeedback
+                    rules={[{
+                        required: true,
+                        message: "Please input your email"
+                    },
+                    {
+                        type: 'email'
+                    }]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="password"
+                    label="Password"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your password!',
+                        },
+                    ]}
+                    hasFeedback
+                >
+                    <Input.Password />
+                </Form.Item>
+
+                <Form.Item>
+                    <Button htmlType='submit' size='large' type='primary'>Login</Button>
+                </Form.Item>
                 <p className='reset-psw'>Do not have an account? <Link to="/register">Register</Link></p>
 
                 <div class="seperator"><b>or</b></div>
-                <p>Sign in with your social media account</p>
+                <p className='text-center'>Sign in with your social media account</p>
                 <div class="social-icon">
                     <button onClick={() => signInWithGoogle()} type="button"><i class="fa fa-google"></i></button>
                 </div>
-            </form>
+            </Form>
         </div>
     )
 }
