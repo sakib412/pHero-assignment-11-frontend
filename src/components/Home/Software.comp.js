@@ -3,11 +3,11 @@ import React from 'react'
 const Software = () => {
     return (
         <section id="software" className="row bg-light my-5">
-            <div class="col-md-6">
+            <div className="col-md-6">
                 <img src='/images/software.jpg' className='img-fluid' alt='software' />
             </div>
-            <div class="col-md-6 d-flex justify-content-center align-items-center">
-                <div class="p-4">
+            <div className="col-md-6 d-flex justify-content-center align-items-center">
+                <div className="p-4">
                     <h3 className='text-center'>Software that gives you the visibility you need</h3>
                     <ul className="list-group">
                         <li className='list-group-item'>
