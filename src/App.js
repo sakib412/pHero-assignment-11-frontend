@@ -11,6 +11,7 @@ import NavBar from './components/NavBar/NavBar.comp';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Register from './components/Register/Register.comp';
 import ItemDetails from './components/ItemDetails/ItemDetails.com';
+import AddItem from './components/AddItem/AddItem.comp';
 
 
 const App = () => (
@@ -28,6 +29,7 @@ const App = () => (
           <PrivateRoute>
             <ItemDetails />
           </PrivateRoute>} />
+        <Route path='add-item' element={<AddItem />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
       </Routes>
