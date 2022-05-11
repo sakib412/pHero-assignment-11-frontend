@@ -2,7 +2,7 @@ import React from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { signOut } from 'firebase/auth';
-import auth from '../firebase.init'
+import auth from '../../firebase.init'
 
 const NavBar = () => {
     const navigate = useNavigate()
@@ -11,7 +11,6 @@ const NavBar = () => {
         signOut(auth)
         navigate('/login')
     }
-    console.log(user)
     return (
         <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
