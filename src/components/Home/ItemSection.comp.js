@@ -24,6 +24,10 @@ const ItemSection = () => {
                 ))}
 
             </div>
+            <div className='d-flex justify-content-center'>
+
+                <Link className='btn btn-primary' to='/manage-inventories'>Manage Inventories</Link>
+            </div>
         </section>
     )
 }

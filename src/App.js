@@ -18,7 +18,9 @@ const App = () => (
     <header>
       <NavBar />
     </header>
-    <main className='container mt-5 pt-3' style={{ minHeight: '100vh' }}>
+    <main className='container mt-5 pt-3'
+      style={{ minHeight: '80vh' }}
+    >
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/inventory' element={<div>Hello</div>} />

@@ -26,6 +26,22 @@ const NavBar = () => {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/inventory">Inventory</NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/blogs">Blogs</NavLink>
+                        </li>
+                        {user && (
+                            <>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/manage-inventories">Manage Items</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/add-item">Add Item</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink className="nav-link" to="/my-items">My Items</NavLink>
+                                </li>
+                            </>
+                        )}
                     </ul>
                     <div className="navbar-nav ms-auto">
                         {user ? (
