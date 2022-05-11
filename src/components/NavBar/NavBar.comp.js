@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { signOut } from 'firebase/auth';
 import auth from '../../firebase.init'
 
@@ -14,7 +14,7 @@ const NavBar = () => {
     return (
         <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
-                <a className="navbar-brand" href="/">Fruit King</a>
+                <Link className="navbar-brand" to="/">Fruit King</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
