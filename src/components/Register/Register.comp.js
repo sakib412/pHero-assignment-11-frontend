@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth'
 import auth from '../../firebase.init';
 import { Button, Form, Input, message, Spin } from 'antd';
+import assignJWT from '../../utils/assignJWT';
 
 
 const Register = () => {
@@ -61,6 +62,7 @@ const Register = () => {
     useEffect(() => {
         if (user || userFromGoogle) {
             setRegisterLoading(false)
+            assignJWT(user?.email || userFromGoogle?.email)
             navigate(from, { replace: true })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

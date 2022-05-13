@@ -35,7 +35,7 @@ const Login = () => {
     useEffect(() => {
 
         if (user || userFromGoogle) {
-            assignJWT(user.email)
+            assignJWT(user?.email || userFromGoogle?.email)
             navigate(from, { replace: true })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

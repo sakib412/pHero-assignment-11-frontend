@@ -23,7 +23,6 @@ const ItemDetails = () => {
         }).finally(() => {
             setButtonDisabled(false)
         })
-        console.log(quantity)
     }
 
     return (
