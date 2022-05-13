@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth'
 import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
-import { Form, Input } from 'antd';
+import { Form, Input, message } from 'antd';
 
 
 const Register = () => {
@@ -32,12 +32,15 @@ const Register = () => {
     }
 
     if (error || errorFromGoogle) {
-        toast(error?.message)
+        message.error({
+            className: "pt-5",
+            content: error?.message
+        })
     }
     return (
         <div className="login-form">
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <h1>Register</h1>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+                <h1 className='text-center'>Register</h1>
                 <div className="form-group">
                     <input type="email" name="email" placeholder="E-mail Address"
                         className={`form-control ${!!errors?.email ? 'is-invalid' : 'is-valid'}`}
@@ -97,7 +100,7 @@ const Register = () => {
                 <div className="social-icon">
                     <button onClick={() => signInWithGoogle()} type="button"><i className="fa fa-google"></i></button>
                 </div>
-            </form>
+            </Form>
         </div>
 
 

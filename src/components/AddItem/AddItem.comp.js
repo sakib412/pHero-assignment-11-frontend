@@ -1,15 +1,21 @@
-import { Form, Input, InputNumber, Button } from 'antd'
+import { Form, Input, InputNumber, Button, message } from 'antd'
 import React from 'react'
 
 const AddItem = () => {
+    const [form] = Form.useForm()
     const onAddItem = (values) => {
         console.log(values)
+        form.resetFields()
+        message.success({
+            content: "Item added. To see the item please visit 'My Items' page from the menu",
+            className: "mt-5"
+        })
     }
     return (
         <div className='py-5 mx-auto'>
 
             <h2 className='text-center'>Add Item</h2>
-            <Form onFinish={onAddItem} layout='vertical'>
+            <Form onFinish={onAddItem} layout='vertical' form={form}>
                 <Form.Item name="name" label="Item Name">
                     <Input />
                 </Form.Item>

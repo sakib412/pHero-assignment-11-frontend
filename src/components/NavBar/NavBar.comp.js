@@ -3,12 +3,17 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { signOut } from 'firebase/auth';
 import auth from '../../firebase.init'
+import { message } from 'antd';
 
 const NavBar = () => {
     const navigate = useNavigate()
     const [user] = useAuthState(auth)
     const onLogout = () => {
         signOut(auth)
+        message.success({
+            className: 'pt-5',
+            content: "Logged out successfully"
+        })
         navigate('/login')
     }
     return (

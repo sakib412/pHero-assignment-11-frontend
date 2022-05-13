@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 import './Login.css'
 import auth from '../../firebase.init';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 
 const Login = () => {
     const navigate = useNavigate()
@@ -40,8 +40,10 @@ const Login = () => {
     }
     useEffect(() => {
         if (error || errorFromGoogle) {
-            console.log(error.message)
-            toast(error?.message || errorFromGoogle?.message)
+            message.error({
+                className: "pt-5",
+                content: error?.message || errorFromGoogle?.message
+            })
         }
     }, [error, errorFromGoogle])
 
