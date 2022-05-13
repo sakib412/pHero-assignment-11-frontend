@@ -1,17 +1,15 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react'
-import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import { toast } from 'react-toastify';
 
 import './Login.css'
 import auth from '../../firebase.init';
 import { Button, Form, Input, message } from 'antd';
+import assignJWT from '../../utils/assignJWT';
 
 const Login = () => {
     const navigate = useNavigate()
-    const { register, handleSubmit, formState: { errors } } = useForm();
     const location = useLocation()
     let from = location.state?.from?.pathname || "/";
 
@@ -34,10 +32,15 @@ const Login = () => {
     }
 
 
+    useEffect(() => {
 
-    if (user || userFromGoogle) {
-        navigate(from, { replace: true })
-    }
+        if (user || userFromGoogle) {
+            assignJWT(user.email)
+            navigate(from, { replace: true })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user, userFromGoogle])
+
     useEffect(() => {
         if (error || errorFromGoogle) {
             message.error({
@@ -49,8 +52,11 @@ const Login = () => {
 
 
 
+
+
+
     return (
-        <div class="w-75 mx-auto my-5">
+        <div classname="w-75 mx-auto my-5">
             <Form onFinish={onSubmit} layout="vertical">
                 <h1 className='text-center'>Login</h1>
 
@@ -85,10 +91,10 @@ const Login = () => {
                 </Form.Item>
                 <p className='reset-psw'>Do not have an account? <Link to="/register">Register</Link></p>
 
-                <div class="seperator"><b>or</b></div>
+                <div className="seperator"><b>or</b></div>
                 <p className='text-center'>Sign in with your social media account</p>
-                <div class="social-icon">
-                    <button onClick={() => signInWithGoogle()} type="button"><i class="fa fa-google"></i></button>
+                <div className="social-icon">
+                    <button onClick={() => signInWithGoogle()} type="button"><i className="fa fa-google"></i></button>
                 </div>
             </Form>
         </div>

@@ -1,17 +1,15 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth'
-import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
-import { Form, Input, message } from 'antd';
+import { Button, Form, Input, message, Spin } from 'antd';
 
 
 const Register = () => {
     const navigate = useNavigate()
-    const { register, handleSubmit, formState: { errors } } = useForm();
     const location = useLocation()
+    const [registerLoading, setRegisterLoading] = useState(false)
     let from = location.state?.from?.pathname || "/";
     const [
         createUserWithEmailAndPassword,
@@ -24,83 +22,136 @@ const Register = () => {
     const [signInWithGoogle, userFromGoogle, loadingFromGoogle, errorFromGoogle] = useSignInWithGoogle(auth);
 
     const onSubmit = ({ email, password }) => {
+        setRegisterLoading(true)
         createUserWithEmailAndPassword(email, password)
     }
 
-    if (user || userFromGoogle) {
-        navigate(from, { replace: true })
-    }
+    const formItemLayout = {
+        labelCol: {
+            xs: {
+                span: 24,
+            },
+            sm: {
+                span: 4,
+            },
+        },
+        wrapperCol: {
+            xs: {
+                span: 24,
+            },
+            sm: {
+                span: 16,
+            },
+        },
+    };
 
-    if (error || errorFromGoogle) {
-        message.error({
-            className: "pt-5",
-            content: error?.message
-        })
-    }
+    const tailFormItemLayout = {
+        wrapperCol: {
+            xs: {
+                span: 24,
+                offset: 0,
+            },
+            sm: {
+                span: 16,
+                offset: 4,
+            },
+        },
+    };
+
+    useEffect(() => {
+        if (user || userFromGoogle) {
+            setRegisterLoading(false)
+            navigate(from, { replace: true })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user, userFromGoogle])
+
+    useEffect(() => {
+        if (error || errorFromGoogle) {
+            setRegisterLoading(false)
+            message.error({
+                className: "pt-5",
+                content: error?.message
+            })
+        }
+    }, [error, errorFromGoogle])
+
     return (
-        <div className="login-form">
-            <Form onSubmit={handleSubmit(onSubmit)}>
-                <h1 className='text-center'>Register</h1>
-                <div className="form-group">
-                    <input type="email" name="email" placeholder="E-mail Address"
-                        className={`form-control ${!!errors?.email ? 'is-invalid' : 'is-valid'}`}
-                        {...register("email", {
-                            required: "Please provide your email address.",
-                            pattern: {
-                                value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                                message: "Invalid email address"
-                            }
-                        })} />
-                    <span className="input-icon"><i className="fa fa-envelope"></i></span>
-                    <div className="invalid-feedback">
-                        {errors.email?.message}
-                    </div>
-                </div>
-                <div className="form-group">
-                    <input type="password" name="password" placeholder="Password"
-                        className={`form-control ${!!errors?.password ? 'is-invalid' : 'is-valid'}`}
-                        {...register("password", {
-                            required: "Please provide your password.",
-                            minLength: {
-                                value: 6,
-                                message: "Password must be equal or greater than 6 charecters."
-                            }
-                        })} />
-                    <div className="invalid-feedback">
-                        {errors?.password?.message}
-                    </div>
-                    <span className="input-icon"><i className="fa fa-lock"></i></span>
-                </div>
-                <Form.Item
-                    name="confirm"
-                    label="Confirm Password"
-                    dependencies={['password']}
-                    hasFeedback
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please confirm your password!',
-                        },
-                        ({ getFieldValue }) => ({
-                            validator(_, value) {
-                                if (!value || getFieldValue('password') === value) {
-                                    return Promise.resolve();
-                                }
-                                return Promise.reject(new Error('The two passwords that you entered do not match!'));
+        <div className="mx-auto">
+            <Spin spinning={registerLoading || loadingFromGoogle} tip="Please wait, Registering user...">
+                <Form
+                    size='large'
+                    onFinish={onSubmit}
+                    {...formItemLayout}
+                    scrollToFirstError>
+                    <h1 className='text-center'>Register</h1>
+
+                    <Form.Item name="email" label="Email" hasFeedback
+                        rules={[
+                            {
+                                type: 'email',
+                                message: 'The input is not valid E-mail!',
                             },
-                        }),
-                    ]}
-                >
-                    <Input.Password />
-                </Form.Item>
-                <button className="login-btn">Register</button>
-                <p className='reset-psw'>Already have an account? <Link to="/login">Login</Link></p>
-                <div className="seperator"><b>or</b></div>
-                <p className='text-center'>Sign in with your social media account</p>
-                <div className="social-icon">
-                    <button onClick={() => signInWithGoogle()} type="button"><i className="fa fa-google"></i></button>
-                </div>
-            </Form>
+                            {
+                                required: true,
+                                message: 'Please input your E-mail!',
+                            },
+                        ]}>
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="password"
+                        label="Password"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your password!',
+                            },
+                            {
+                                min: 6
+                            }
+                        ]}>
+                        <Input.Password />
+                    </Form.Item>
+
+
+                    <Form.Item
+                        name="confirm"
+                        label="Confirm Password"
+                        dependencies={['password']}
+                        hasFeedback
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please confirm your password!',
+                            },
+                            ({ getFieldValue }) => ({
+                                validator(_, value) {
+                                    if (!value || getFieldValue('password') === value) {
+                                        return Promise.resolve();
+                                    }
+                                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                },
+                            }),
+                        ]}
+                    >
+                        <Input.Password />
+                    </Form.Item>
+
+                    <Form.Item {...tailFormItemLayout}>
+                        <Button type="primary" htmlType="submit" disabled={loading}>
+                            Register
+                        </Button>
+                    </Form.Item>
+                    <p className='reset-psw'>Already have an account? <Link to="/login">Login</Link></p>
+                    <div className="seperator"><b>or</b></div>
+                    <p className='text-center'>Sign in with your social media account</p>
+                    <div className="social-icon">
+                        <button onClick={() => signInWithGoogle()} type="button"><i className="fa fa-google"></i></button>
+                    </div>
+                </Form>
+            </Spin>
         </div>
 
 

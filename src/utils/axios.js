@@ -3,21 +3,17 @@ import axios from "axios";
 export const ACCESS_TOKEN = "ACCESS_TOKEN"
 
 const baseURL = `${window.location.protocol}//${window.location.hostname}:5000/`;
+const access_token = localStorage.getItem(ACCESS_TOKEN);
+
 const axiosInstance = axios.create({
     baseURL: baseURL,
     headers: {
         "Content-Type": "application/json",
+        "Authorization": access_token ? `Bearer ${access_token}` : undefined
     },
 });
 
-const access_token = localStorage.getItem(ACCESS_TOKEN);
-if (access_token) {
-    axiosInstance.defaults.headers.common[
-        "Authorization"
-    ] = `Bearer ${access_token}`;
-} else {
-    delete axiosInstance.defaults.headers.common["Authorization"];
-}
+console.log(axiosInstance.headers)
 
 
 export default axiosInstance;
