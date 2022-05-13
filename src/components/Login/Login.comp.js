@@ -19,6 +19,7 @@ const Login = () => {
         loadingFromGoogle,
         errorFromGoogle
     ] = useSignInWithGoogle(auth);
+
     const [
         signInWithEmailAndPassword,
         user,
@@ -26,14 +27,11 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
-
     const onSubmit = ({ email, password }) => {
         signInWithEmailAndPassword(email, password)
     }
 
-
     useEffect(() => {
-
         if (user || userFromGoogle) {
             assignJWT(user?.email || userFromGoogle?.email)
             navigate(from, { replace: true })
@@ -50,13 +48,8 @@ const Login = () => {
         }
     }, [error, errorFromGoogle])
 
-
-
-
-
-
     return (
-        <div classname="w-75 mx-auto my-5">
+        <div className="w-75 mx-auto my-5">
             <Form onFinish={onSubmit} layout="vertical">
                 <h1 className='text-center'>Login</h1>
 

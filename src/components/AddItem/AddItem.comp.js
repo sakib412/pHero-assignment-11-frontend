@@ -13,7 +13,6 @@ const AddItem = () => {
     }
     return (
         <div className='py-5 mx-auto'>
-
             <h2 className='text-center'>Add Item</h2>
             <Form onFinish={onAddItem} layout='vertical' form={form}>
                 <Form.Item name="name" label="Item Name">

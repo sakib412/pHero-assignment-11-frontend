@@ -12,6 +12,7 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Register from './components/Register/Register.comp';
 import ItemDetails from './components/ItemDetails/ItemDetails.com';
 import AddItem from './components/AddItem/AddItem.comp';
+import ManageInventory from './components/ManageInventory/ManageInventory.comp';
 
 
 const App = () => (
@@ -24,7 +25,7 @@ const App = () => (
     >
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/inventory' element={<div>Hello</div>} />
+        <Route path='/inventory' element={<ManageInventory />} />
         <Route path='/inventory/:id' element={
           <PrivateRoute>
             <ItemDetails />
