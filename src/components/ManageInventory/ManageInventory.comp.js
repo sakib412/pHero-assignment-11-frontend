@@ -39,7 +39,7 @@ const ManageInventory = () => {
                     <Link to={`/inventory/${record._id}`}>
                         <Button type='primary' className='me-1'>Manage</Button></Link>
                     <Button
-                        onClick={() => { onDelete(record._id) }}
+                        onClick={() => { onDelete(record) }}
                         type='primary'
                         danger>Delete</Button>
                 </>)
@@ -47,14 +47,15 @@ const ManageInventory = () => {
         }
     ];
 
-    const onDelete = (id) => {
+    const onDelete = (record) => {
         Modal.confirm({
             title: "Are you sure?",
-            content: "You want to delete this items?",
+            content: `You want to delete ${record.name}?`,
             onOk: () => {
-                axiosInstance.delete(`/inventory/${id}`).then((res) => {
-                    setItems(items.filter((i) => i._id !== id))
+                axiosInstance.delete(`/inventory/${record._id}`).then((res) => {
+                    setItems(items.filter((i) => i._id !== record._id))
                     message.success({ content: "Successfully deleted", className: 'mt-5' })
+                    setTotalData(totalData - 1)
                 })
             },
             okText: "Delete",
@@ -96,6 +97,7 @@ const ManageInventory = () => {
                             showSizeChanger
                             pageSizeOptions={[5, 10, 15, 20, 30, 50]}
                             responsive
+                            showTotal={(total, range) => { return `${range[0]}-${range[1]} of ${total} items` }}
                         />
                     </div>
                 )}
