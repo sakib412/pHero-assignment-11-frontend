@@ -1,4 +1,4 @@
-import { Button, Pagination, Table } from 'antd'
+import { Button, message, Modal, Pagination, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import axiosInstance from '../../utils/axios'
@@ -39,13 +39,28 @@ const ManageInventory = () => {
                     <Link to={`/inventory/${record._id}`}>
                         <Button type='primary' className='me-1'>Manage</Button></Link>
                     <Button
-                        onClick={() => { console.log(text, record, index) }}
+                        onClick={() => { onDelete(record._id) }}
                         type='primary'
                         danger>Delete</Button>
                 </>)
             }
         }
     ];
+
+    const onDelete = (id) => {
+        Modal.confirm({
+            title: "Are you sure?",
+            content: "You want to delete this items?",
+            onOk: () => {
+                axiosInstance.delete(`/inventory/${id}`).then((res) => {
+                    setItems(items.filter((i) => i._id !== id))
+                    message.success({ content: "Successfully deleted", className: 'mt-5' })
+                })
+            },
+            okText: "Delete",
+            okButtonProps: { danger: true }
+        })
+    }
 
     useEffect(() => {
         axiosInstance.get(`/inventory?page=${currentPage}&size=${pageSize}`).then(({ data }) => {

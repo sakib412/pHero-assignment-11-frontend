@@ -8,7 +8,6 @@ const AddItem = () => {
     const [user] = useAuthState(auth)
     const [form] = Form.useForm()
     const onAddItem = (values) => {
-        console.log(values)
 
         axiosInstance.post('/inventory', { ...values, email: user.email }).then(({ data }) => {
             if (data) {
@@ -17,11 +16,10 @@ const AddItem = () => {
                     content: "Item added. To see the item please visit 'My Items' page from the menu",
                     className: "mt-5"
                 })
-
-
             }
+        }).catch((e) => {
+            console.log(e.message)
         })
-
     }
     return (
         <div className='py-5 mx-auto'>
@@ -37,7 +35,7 @@ const AddItem = () => {
                 <Form.Item name="description" label="Item Description">
                     <Input.TextArea />
                 </Form.Item>
-                <Form.Item name='url' label='Image URL'
+                <Form.Item name='image' label='Image URL'
                     rules={[{
                         required: true,
                         message: "Please input image url"

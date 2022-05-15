@@ -29,16 +29,14 @@ const NavBar = () => {
                             <NavLink className="nav-link" to="/">Home</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/inventory">Inventory</NavLink>
+                            <NavLink className="nav-link" to="/inventory">Manage inventories</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/blogs">Blogs</NavLink>
                         </li>
                         {user && (
                             <>
-                                <li className="nav-item">
-                                    <NavLink className="nav-link" to="/manage-inventories">Manage Items</NavLink>
-                                </li>
+
                                 <li className="nav-item">
                                     <NavLink className="nav-link" to="/add-item">Add Item</NavLink>
                                 </li>

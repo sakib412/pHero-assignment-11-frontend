@@ -26,7 +26,7 @@ const ItemSection = () => {
                 <div className='row g-2 row-cols-2 d-flex justify-content-center'>
                     {items.map((item) => (
                         <div key={item._id} className="col-md-3 card m-2">
-                            <img src="/images/cover.jpg" className="card-img-top" alt="" />
+                            <img src={item.image} style={{ height: '20rem' }} className="card-img-top img-fluid" alt={item.name} />
                             <div className="card-body">
                                 <h5 className="card-title">{item.name}</h5>
                                 <p className="card-text">{item.description}</p>
@@ -42,7 +42,7 @@ const ItemSection = () => {
                 </div>
             </Spin>
             <div className='d-flex justify-content-center'>
-                <Link className='btn btn-primary mt-2' to='/manage-inventories'>Manage Inventories</Link>
+                <Link className='btn btn-primary mt-2' to='/inventory'>Manage Inventories</Link>
             </div>
         </section>
     )
