@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const ACCESS_TOKEN = "ACCESS_TOKEN"
 
-const baseURL = `${window.location.protocol}//${window.location.hostname}:5000/`;
+const baseURL = process.env.REACT_APP_SERVER_URL || `${window.location.protocol}//${window.location.hostname}:5000/`;
 const access_token = localStorage.getItem(ACCESS_TOKEN);
 
 const axiosInstance = axios.create({

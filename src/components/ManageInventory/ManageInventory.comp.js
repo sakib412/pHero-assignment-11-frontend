@@ -59,6 +59,7 @@ const ManageInventory = () => {
             setLoading(false)
         })
     }, [currentPage, pageSize])
+
     return (
         <div className='py-5 mx-auto'>
             <h2 className='text-center'>Manage Inventory</h2>
@@ -84,10 +85,6 @@ const ManageInventory = () => {
                     </div>
                 )}
             />
-
-
-
-
         </div>
     )
 }
