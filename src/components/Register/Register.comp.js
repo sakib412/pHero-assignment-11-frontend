@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth'
+import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth'
 import auth from '../../firebase.init';
 import { Button, Form, Input, message, Spin } from 'antd';
 import assignJWT from '../../utils/assignJWT';
 
 
 const Register = () => {
+    const [authUser] = useAuthState(auth)
     const navigate = useNavigate()
     const location = useLocation()
     const [registerLoading, setRegisterLoading] = useState(false)
@@ -18,7 +19,7 @@ const Register = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth, {
-        sendEmailVerification: true
+        sendEmailVerification: true // after registering, send user confirmation email
     });
     const [signInWithGoogle, userFromGoogle, loadingFromGoogle, errorFromGoogle] = useSignInWithGoogle(auth);
 
@@ -77,6 +78,12 @@ const Register = () => {
             })
         }
     }, [error, errorFromGoogle])
+
+    useEffect(() => {
+        if (authUser) {
+            navigate(from, { replace: true })
+        }
+    }, [authUser, from, navigate])
 
     return (
         <div className="mx-auto">
@@ -155,9 +162,6 @@ const Register = () => {
                 </Form>
             </Spin>
         </div>
-
-
-
     )
 }
 

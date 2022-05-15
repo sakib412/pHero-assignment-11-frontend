@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
 import './Login.css'
 import auth from '../../firebase.init';
@@ -9,6 +9,7 @@ import { Button, Form, Input, message } from 'antd';
 import assignJWT from '../../utils/assignJWT';
 
 const Login = () => {
+    const [authUser] = useAuthState(auth)
     const navigate = useNavigate()
     const location = useLocation()
     let from = location.state?.from?.pathname || "/";
@@ -47,6 +48,12 @@ const Login = () => {
             })
         }
     }, [error, errorFromGoogle])
+
+    useEffect(() => {
+        if (authUser) {
+            navigate(from, { replace: true })
+        }
+    }, [authUser, from, navigate])
 
     return (
         <div className="w-75 mx-auto my-5">

@@ -8,7 +8,6 @@ const AddItem = () => {
     const [user] = useAuthState(auth)
     const [form] = Form.useForm()
     const onAddItem = (values) => {
-
         axiosInstance.post('/inventory', { ...values, email: user.email }).then(({ data }) => {
             if (data) {
                 form.resetFields()
@@ -21,6 +20,7 @@ const AddItem = () => {
             console.log(e.message)
         })
     }
+
     return (
         <div className='py-5 mx-auto'>
             <h2 className='text-center'>Add Item</h2>
@@ -32,9 +32,11 @@ const AddItem = () => {
                     }]}>
                     <Input />
                 </Form.Item>
+
                 <Form.Item name="description" label="Item Description">
                     <Input.TextArea />
                 </Form.Item>
+
                 <Form.Item name='image' label='Image URL'
                     rules={[{
                         required: true,
@@ -42,6 +44,7 @@ const AddItem = () => {
                     }]}>
                     <Input />
                 </Form.Item>
+
                 <Form.Item name='supplier' label='Supplier Name'
                     rules={[{
                         required: true,
@@ -49,6 +52,7 @@ const AddItem = () => {
                     }]}>
                     <Input />
                 </Form.Item>
+
                 <Form.Item style={{ marginBottom: 0 }}>
                     <Form.Item name="quantity" label="Quantity" style={{ display: 'inline-block', }}
                         rules={[{
@@ -67,7 +71,6 @@ const AddItem = () => {
                 <Form.Item>
                     <Button type='primary' htmlType="submit">Add</Button>
                 </Form.Item>
-
             </Form>
 
         </div>

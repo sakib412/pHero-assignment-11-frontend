@@ -14,7 +14,6 @@ import ItemDetails from './components/ItemDetails/ItemDetails.com';
 import AddItem from './components/AddItem/AddItem.comp';
 import ManageInventory from './components/ManageInventory/ManageInventory.comp';
 
-
 const App = () => (
   <>
     <header>
@@ -25,12 +24,21 @@ const App = () => (
     >
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/blogs' element={<div>Blogs</div>} />
         <Route path='/inventory' element={<ManageInventory />} />
-        <Route path='/inventory/:id' element={
-          <PrivateRoute>
-            <ItemDetails />
-          </PrivateRoute>} />
-        <Route path='add-item' element={<AddItem />} />
+        <Route
+          path='/inventory/:id'
+          element={
+            <PrivateRoute>
+              <ItemDetails />
+            </PrivateRoute>} />
+        <Route
+          path='add-item'
+          element={
+            <PrivateRoute>
+              <AddItem />
+            </PrivateRoute>
+          } />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
       </Routes>
