@@ -7,6 +7,7 @@ import './Login.css'
 import auth from '../../firebase.init';
 import { Button, Form, Input, message } from 'antd';
 import assignJWT from '../../utils/assignJWT';
+import { errorMessage, successMessage } from '../../utils/message';
 
 const Login = () => {
     const [authUser] = useAuthState(auth)
@@ -35,6 +36,7 @@ const Login = () => {
     useEffect(() => {
         if (user || userFromGoogle) {
             assignJWT(user?.email || userFromGoogle?.email)
+            successMessage("Logged in successfully")
             navigate(from, { replace: true })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,10 +44,7 @@ const Login = () => {
 
     useEffect(() => {
         if (error || errorFromGoogle) {
-            message.error({
-                className: "pt-5",
-                content: error?.message || errorFromGoogle?.message
-            })
+            errorMessage(error?.message || errorFromGoogle?.message)
         }
     }, [error, errorFromGoogle])
 

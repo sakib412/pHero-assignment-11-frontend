@@ -29,7 +29,7 @@ const ItemDetails = () => {
         <div className='row d-flex justify-content-center align-items-center my-5'>
             <h3 className='text-center'>ID: {item._id}</h3>
             <div className="col-md-4">
-                <img className='img-fluid' src='/images/cover.jpg' alt='' />
+                <img className='img-fluid' style={{ height: '26rem' }} src={item.image} alt={item.name} />
             </div>
             <div className="col-md-8">
                 <h3 className='text-primary'>{item?.name}</h3>
