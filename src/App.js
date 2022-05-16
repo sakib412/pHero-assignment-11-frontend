@@ -15,6 +15,7 @@ import AddItem from './components/AddItem/AddItem.comp';
 import ManageInventory from './components/ManageInventory/ManageInventory.comp';
 import MyItems from './components/MyItems/MyItems.comp';
 import Blogs from './components/Blogs/Blogs.comp';
+import NotFound from './components/NotFound/NotFound.comp';
 
 const App = () => (
   <>
@@ -53,6 +54,7 @@ const App = () => (
             <PrivateRoute>
               <MyItems />
             </PrivateRoute>} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </main>
     <ToastContainer />
