@@ -1,17 +1,18 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle, useSendPasswordResetEmail } from 'react-firebase-hooks/auth';
+import { Button, Form, Input } from 'antd';
 
 import './Login.css'
 import auth from '../../firebase.init';
-import { Button, Form, Input } from 'antd';
 import assignJWT from '../../utils/assignJWT';
 import { errorMessage, successMessage } from '../../utils/message';
 
 const Login = () => {
     const navigate = useNavigate()
     const location = useLocation()
+    const [email, setEmail] = useState("") //for reset password
     let from = location.state?.from?.pathname || "/";
 
     const [
@@ -27,6 +28,7 @@ const Login = () => {
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
+    const [sendPasswordResetEmail, sending, errorFromReset] = useSendPasswordResetEmail(auth);
 
     const onSubmit = ({ email, password }) => {
         signInWithEmailAndPassword(email, password)
@@ -43,15 +45,28 @@ const Login = () => {
 
     useEffect(() => {
         if (error || errorFromGoogle) {
-            errorMessage(error?.message || errorFromGoogle?.message)
+            errorMessage(error?.message || errorFromGoogle?.message || errorFromReset?.message)
         }
-    }, [error, errorFromGoogle])
+    }, [error, errorFromGoogle, errorFromReset])
+
+    const onResetPassword = () => {
+        if (!email) {
+            errorMessage("Please input your mail first")
+        } else {
+            sendPasswordResetEmail(email)
+        }
+    }
+
+    const onFormValueChange = (changedValues) => {
+        setEmail(changedValues?.email?.trim())
+    }
 
     return (
         <div className="w-75 mx-auto my-5">
-            <Form onFinish={onSubmit} layout="vertical">
+            <Form onFinish={onSubmit} layout="vertical"
+                onValuesChange={onFormValueChange}
+            >
                 <h1 className='text-center'>Login</h1>
-
                 <Form.Item name="email" label="Email"
                     hasFeedback
                     rules={[{
@@ -61,6 +76,7 @@ const Login = () => {
                     {
                         type: 'email'
                     }]}
+
                 >
                     <Input />
                 </Form.Item>
@@ -81,7 +97,11 @@ const Login = () => {
                 <Form.Item>
                     <Button htmlType='submit' size='large' type='primary'>Login</Button>
                 </Form.Item>
+                <p>Forgot your password? <span onClick={onResetPassword} className='btn btn-link'>
+                    {sending ? 'Sending...' : 'Reset here'}
+                </span></p>
                 <p className='reset-psw'>Do not have an account? <Link to="/register">Register</Link></p>
+
 
                 <div className="seperator"><b>or</b></div>
                 <p className='text-center'>Sign in with your social media account</p>
