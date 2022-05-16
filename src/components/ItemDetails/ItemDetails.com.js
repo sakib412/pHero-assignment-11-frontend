@@ -2,6 +2,7 @@ import { Button, Form, InputNumber } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axiosInstance from '../../utils/axios'
+import { successMessage } from '../../utils/message'
 
 const ItemDetails = () => {
     const { id } = useParams()
@@ -19,7 +20,7 @@ const ItemDetails = () => {
             quantity
         }).then(({ data }) => {
             setItem(data.results)
-
+            successMessage(quantity < 0 ? "Delevered" : `Increased ${quantity} items`)
         }).finally(() => {
             setButtonDisabled(false)
         })
@@ -27,17 +28,17 @@ const ItemDetails = () => {
 
     return (
         <div className='row d-flex justify-content-center align-items-center my-5'>
-            <h3 className='text-center'>ID: {item._id}</h3>
+            <h3 className='text-center'>ID: {item?._id}</h3>
             <div className="col-md-4">
-                <img className='img-fluid' style={{ height: '26rem' }} src={item.image} alt={item.name} />
+                <img className='img-fluid' style={{ height: '26rem' }} src={item?.image} alt={item?.name} />
             </div>
             <div className="col-md-8">
                 <h3 className='text-primary'>{item?.name}</h3>
                 <p>{item?.description}</p>
-                <p>Price: <strong>{item.price} BDT</strong></p>
-                <p>Quantity: <strong>{item.quantity ? item.quantity : "Soldout"}</strong></p>
-                <p>Supplier: <strong>{item.supplier}</strong> </p>
-                <Button disabled={buttonDisabled || !item.quantity} className='mb-3' type='primary' onClick={() => {
+                <p>Price: <strong>{item?.price} BDT</strong></p>
+                <p>Quantity: <strong>{item?.quantity ? item?.quantity : "Soldout"}</strong></p>
+                <p>Supplier: <strong>{item?.supplier}</strong> </p>
+                <Button disabled={buttonDisabled || !item?.quantity} className='mb-3' type='primary' onClick={() => {
                     onStockUpdate({ quantity: -1 })
                 }}>Delevered</Button>
 
