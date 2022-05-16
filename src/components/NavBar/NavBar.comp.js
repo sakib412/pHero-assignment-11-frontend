@@ -4,12 +4,14 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { signOut } from 'firebase/auth';
 import auth from '../../firebase.init'
 import { message } from 'antd';
+import { ACCESS_TOKEN } from '../../utils/axios';
 
 const NavBar = () => {
     const navigate = useNavigate()
     const [user] = useAuthState(auth)
     const onLogout = () => {
         signOut(auth)
+        localStorage.removeItem(ACCESS_TOKEN)
         message.success({
             className: 'pt-5',
             content: "Logged out successfully"

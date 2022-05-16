@@ -30,6 +30,11 @@ const ManageInventory = () => {
             dataIndex: 'quantity',
             sorter: (a, b) => a.quantity - b.quantity
         },
+        {
+            title: "Price",
+            dataIndex: 'price',
+            sorter: (a, b) => a.price - b.price
+        },
 
         {
             title: "Actions",
@@ -78,7 +83,12 @@ const ManageInventory = () => {
 
     return (
         <div className='py-5 mx-auto'>
-            <h2 className='text-center'>Manage Inventory</h2>
+            <div className='d-flex justify-content-between'>
+                <h2 className=''>Manage Inventory</h2>
+                <p>
+                    <Link className='btn btn-primary text-white' to="/add-item">Add new Item</Link>
+                </p>
+            </div>
             <Table
                 dataSource={items}
                 columns={columns}
