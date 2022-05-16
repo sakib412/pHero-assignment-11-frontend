@@ -12,7 +12,6 @@ const ItemSection = () => {
             const { data: items } = data.results
             setItems(items)
         }).catch((err) => {
-
         }).finally(() => {
             setLoading(false)
         })
@@ -29,8 +28,7 @@ const ItemSection = () => {
                             <img src={item.image} style={{ height: '20rem' }} className="card-img-top img-fluid" alt={item.name} />
                             <div className="card-body">
                                 <h5 className="card-title">{item.name}</h5>
-                                <p className="card-text">{item.description}</p>
-
+                                <p className="card-text">{item.description.substring(0, 50)}</p>
                                 <p>Supplier: {item.supplier}</p>
                                 <p>Price: {item.price} BDT</p>
                                 <p>Quantity: {item.quantity}</p>
@@ -38,7 +36,6 @@ const ItemSection = () => {
                             </div>
                         </div>
                     ))}
-
                 </div>
             </Spin>
             <div className='d-flex justify-content-center'>
