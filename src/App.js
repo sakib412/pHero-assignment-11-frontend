@@ -1,8 +1,6 @@
-import 'react-toastify/dist/ReactToastify.css';
 import './App.css'
 
 import { Route, Routes } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify'
 
 import Footer from './components/Footer/Footer.comp';
 import Home from './components/Home/Home.comp';
@@ -59,7 +57,6 @@ const App = () => (
         <Route path='*' element={<NotFound />} />
       </Routes>
     </main>
-    <ToastContainer />
     <Footer />
   </>
 );
