@@ -14,6 +14,7 @@ import ItemDetails from './components/ItemDetails/ItemDetails.com';
 import AddItem from './components/AddItem/AddItem.comp';
 import ManageInventory from './components/ManageInventory/ManageInventory.comp';
 import MyItems from './components/MyItems/MyItems.comp';
+import Blogs from './components/Blogs/Blogs.comp';
 
 const App = () => (
   <>
@@ -25,7 +26,9 @@ const App = () => (
     >
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/blogs' element={<div>Blogs</div>} />
+        <Route path='/blogs' element={<Blogs />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
         <Route
           path='/inventory'
           element={
@@ -50,8 +53,6 @@ const App = () => (
             <PrivateRoute>
               <MyItems />
             </PrivateRoute>} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
       </Routes>
     </main>
     <ToastContainer />

@@ -1,8 +1,10 @@
 import { Button, message, Modal, Pagination, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { signOut } from 'firebase/auth';
 import axiosInstance from '../../utils/axios'
 import { errorMessage } from '../../utils/message'
+import auth from '../../firebase.init';
 
 const MyItems = () => {
     const [searchParams, setSearchParams] = useSearchParams()
@@ -80,9 +82,8 @@ const MyItems = () => {
             setTotalData(data.results.totalData)
             setCurrentPage(data.results.currentPage)
         }).catch((err) => {
-            console.dir(err)
             errorMessage(err.message)
-
+            signOut(auth)
         }).finally(() => {
             setLoading(false)
         })
