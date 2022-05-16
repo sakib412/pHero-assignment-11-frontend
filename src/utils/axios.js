@@ -1,6 +1,6 @@
 import axios from "axios";
 export const ACCESS_TOKEN = "ACCESS_TOKEN"
-const baseURL = process.env.REACT_APP_SERVER_URL || `${window.location.protocol}//${window.location.hostname}:5000/`;
+const baseURL = process.env.NODE_ENV === 'development' ? "http://localhost:5000" : "https://nameless-escarpment-48784.herokuapp.com/";
 const access_token = localStorage.getItem(ACCESS_TOKEN);
 
 const axiosInstance = axios.create({
