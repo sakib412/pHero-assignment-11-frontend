@@ -16,6 +16,7 @@ import ManageInventory from './components/ManageInventory/ManageInventory.comp';
 import MyItems from './components/MyItems/MyItems.comp';
 import Blogs from './components/Blogs/Blogs.comp';
 import NotFound from './components/NotFound/NotFound.comp';
+import About from './components/About/About.comp';
 
 const App = () => (
   <>
@@ -30,6 +31,7 @@ const App = () => (
         <Route path='/blogs' element={<Blogs />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/about' element={<About />} />
         <Route
           path='/inventory'
           element={
