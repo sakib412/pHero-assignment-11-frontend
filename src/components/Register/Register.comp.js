@@ -1,14 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth'
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth'
 import auth from '../../firebase.init';
 import { Button, Form, Input, message, Spin } from 'antd';
 import assignJWT from '../../utils/assignJWT';
 
 
 const Register = () => {
-    const [authUser] = useAuthState(auth)
     const navigate = useNavigate()
     const location = useLocation()
     const [registerLoading, setRegisterLoading] = useState(false)
@@ -63,7 +62,7 @@ const Register = () => {
     useEffect(() => {
         if (user || userFromGoogle) {
             setRegisterLoading(false)
-            assignJWT(user?.email || userFromGoogle?.email)
+            assignJWT(user?.user?.email || userFromGoogle?.user?.email)
             navigate(from, { replace: true })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,11 +78,8 @@ const Register = () => {
         }
     }, [error, errorFromGoogle])
 
-    useEffect(() => {
-        if (authUser) {
-            navigate(from, { replace: true })
-        }
-    }, [authUser, from, navigate])
+
+    console.log(user)
 
     return (
         <div className="mx-auto">

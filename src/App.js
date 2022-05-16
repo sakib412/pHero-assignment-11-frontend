@@ -13,6 +13,7 @@ import Register from './components/Register/Register.comp';
 import ItemDetails from './components/ItemDetails/ItemDetails.com';
 import AddItem from './components/AddItem/AddItem.comp';
 import ManageInventory from './components/ManageInventory/ManageInventory.comp';
+import MyItems from './components/MyItems/MyItems.comp';
 
 const App = () => (
   <>
@@ -42,6 +43,12 @@ const App = () => (
           element={
             <PrivateRoute>
               <AddItem />
+            </PrivateRoute>} />
+        <Route
+          path='my-items'
+          element={
+            <PrivateRoute>
+              <MyItems />
             </PrivateRoute>} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />

@@ -1,16 +1,15 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
 import './Login.css'
 import auth from '../../firebase.init';
-import { Button, Form, Input, message } from 'antd';
+import { Button, Form, Input } from 'antd';
 import assignJWT from '../../utils/assignJWT';
 import { errorMessage, successMessage } from '../../utils/message';
 
 const Login = () => {
-    const [authUser] = useAuthState(auth)
     const navigate = useNavigate()
     const location = useLocation()
     let from = location.state?.from?.pathname || "/";
@@ -35,7 +34,7 @@ const Login = () => {
 
     useEffect(() => {
         if (user || userFromGoogle) {
-            assignJWT(user?.email || userFromGoogle?.email)
+            assignJWT(user?.user?.email || userFromGoogle?.user?.email)
             successMessage("Logged in successfully")
             navigate(from, { replace: true })
         }
@@ -47,12 +46,6 @@ const Login = () => {
             errorMessage(error?.message || errorFromGoogle?.message)
         }
     }, [error, errorFromGoogle])
-
-    useEffect(() => {
-        if (authUser) {
-            navigate(from, { replace: true })
-        }
-    }, [authUser, from, navigate])
 
     return (
         <div className="w-75 mx-auto my-5">
