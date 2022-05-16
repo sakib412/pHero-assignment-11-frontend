@@ -20,3 +20,4 @@ This website is managing fruit stock for supplier
  - you need to authenticate to add item and manage.
  - Also you can delete any item after login
  - Updating inventory and delevered functionality can be accessed after authenticated
+ - You can register via email or sign in with google
